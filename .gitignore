@@ -1,0 +1,21 @@
+# Secrets: never commit API keys
+.env
+.env.*
+
+# Node
+node_modules/
+
+# Unity (for the headset project that will live next to case-service)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.apk
+*.aab
+
+# OS
+.DS_Store
+Thumbs.db
