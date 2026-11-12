@@ -3,7 +3,7 @@
 // The headset then places each object in 3D from its sighting (frame + box).
 
 import Anthropic from "@anthropic-ai/sdk";
-import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
+import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { z } from "zod";
 import type { RoomObject } from "./types.ts";
 import { normalize } from "./tokens.ts";
@@ -64,7 +64,7 @@ export class RoomScanner {
 
   async scan(frames: Frame[]): Promise<ScannedObject[]> {
     if (frames.length === 0) return [];
-    const content: Anthropic.Beta.BetaContentBlockParam[] = [];
+    const content: Anthropic.ContentBlockParam[] = [];
     frames.forEach((f, i) => {
       content.push({ type: "text", text: `Frame ${i}:` });
       content.push({
@@ -74,12 +74,10 @@ export class RoomScanner {
     });
     content.push({ type: "text", text: SCAN_PROMPT });
 
-    const response = await this.client.beta.messages.parse({
+    const response = await this.client.messages.parse({
       model: MODEL,
       max_tokens: 16000,
-      output_config: { effort: "medium", format: betaZodOutputFormat(ScanSchema) },
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
+      output_config: { effort: "medium", format: zodOutputFormat(ScanSchema) },
       messages: [{ role: "user", content }],
     });
     if (response.stop_reason === "refusal") {

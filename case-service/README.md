@@ -118,7 +118,7 @@ Any other drop (a correct word on the wrong object) also falls slack.
 | `src/planner.ts` | Decides the case logic from the room, with a seeded random generator |
 | `src/tokens.ts` | Word rules: which words count, which make good lies, what pins to what |
 | `src/solver.ts` | Independent checker that every case must pass |
-| `src/writer-llm.ts` | Claude writes the dialogue (structured output, model `claude-sonnet-5-5`) |
+| `src/writer-llm.ts` | Claude writes the dialogue (structured output, model `claude-haiku-5-5`) |
 | `src/writer-template.ts` | Offline writer used as the fallback |
 | `src/assemble.ts` | Turns plan and dialogue into the `CaseFile` |
 | `src/generate.ts` | Plan, write, check, rewrite once, fall back |

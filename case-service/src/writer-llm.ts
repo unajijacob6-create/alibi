@@ -4,7 +4,7 @@
 // offline template writer takes over if it still fails.
 
 import Anthropic from "@anthropic-ai/sdk";
-import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
+import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { z } from "zod";
 import type { CaseDraft, CasePlan } from "./types.ts";
 
@@ -19,8 +19,9 @@ const DraftSchema = z.object({
   confession: z.string(),
 });
 
-// Sonnet: faster and cheaper than Opus, stronger writing than Haiku.
-export const MODEL = "claude-sonnet-5-5";
+// Haiku: the fastest and cheapest model. The solver and the offline writer
+// cover any draft it gets wrong.
+export const MODEL = "claude-haiku-5-5";
 
 export const SYSTEM_PROMPT = `You write dialogue for Alibi, a seated mixed-reality murder mystery played on a Meta Quest headset.
 
@@ -74,18 +75,17 @@ export class ClaudeWriter implements DraftWriter {
   }
 
   async write(plan: CasePlan, previousErrors: string[]): Promise<CaseDraft> {
-    const response = await this.client.beta.messages.parse({
+    const response = await this.client.messages.parse({
       model: MODEL,
       max_tokens: 16000,
       // Low effort keeps the wait short. The solver catches mistakes and asks for one
       // rewrite; raise to "medium" if the attempts log shows frequent rewrites.
-      output_config: { effort: "low", format: betaZodOutputFormat(DraftSchema) },
-      // If the main model declines, the API retries on its default fallback model.
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
+      output_config: { effort: "low", format: zodOutputFormat(DraftSchema) },
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: buildUserMessage(plan, previousErrors) }],
     });
+    // Haiku has no server-side refusal fallback; a refusal here sends the
+    // generator straight to the offline writer.
     if (response.stop_reason === "refusal") {
       throw new Error(`Claude declined to write the case (${response.stop_details?.category ?? "no category"})`);
     }
