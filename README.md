@@ -10,3 +10,4 @@ Three correct pins break the liar.
 | Folder | What it is |
 |---|---|
 | `case-service/` | Node service that scans the room and builds a solvable case. See its README. |
+| `unity-scripts/` | C# scripts for the headset: scan, placement, captions, grabbing and pinning. See its README. |

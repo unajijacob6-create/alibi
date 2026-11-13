@@ -1,0 +1,240 @@
+{
+  "room": [
+    {
+      "id": "chair",
+      "label": "chair",
+      "text": [],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "lamp",
+      "label": "lamp",
+      "text": [],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "sign",
+      "label": "sign",
+      "text": [
+        "EXIT"
+      ],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    }
+  ],
+  "caseFile": {
+    "version": 1,
+    "caseId": "case-7",
+    "seed": 7,
+    "writer": "template",
+    "victim": {
+      "name": "Delphine Moss",
+      "occupation": "a radio host"
+    },
+    "timeOfDeath": "9:40 pm",
+    "intro": [
+      "Delphine Moss, a radio host, was found dead at 9:40 pm.",
+      "Three people saw the victim that evening. One of them is lying.",
+      "Listen closely. A liar borrows details from whatever is in front of them."
+    ],
+    "suspects": [
+      {
+        "id": "suspect-1",
+        "name": "Hugo Voss",
+        "relation": "the neighbour from downstairs",
+        "isLiar": true,
+        "lines": [
+          {
+            "id": "suspect-1-l1",
+            "text": "I'll tell you exactly where I was. Write it down.",
+            "words": []
+          },
+          {
+            "id": "suspect-1-l2",
+            "text": "The taxi dropped me outside Lisbonne just before ten.",
+            "words": [
+              {
+                "wordId": "suspect-1-w1",
+                "text": "Lisbonne",
+                "start": 28,
+                "end": 36
+              }
+            ]
+          },
+          {
+            "id": "suspect-1-l3",
+            "text": "I was reading about Halloran in bed when the phone rang.",
+            "words": [
+              {
+                "wordId": "suspect-1-w2",
+                "text": "Halloran",
+                "start": 20,
+                "end": 28
+              }
+            ]
+          },
+          {
+            "id": "suspect-1-l4",
+            "text": "I spent the whole evening at the Orpheum, from eight until they closed.",
+            "words": [
+              {
+                "wordId": "suspect-1-w3",
+                "text": "Orpheum",
+                "start": 33,
+                "end": 40
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "suspect-2",
+        "name": "Vera Hartsell",
+        "relation": "the night-shift doorman",
+        "isLiar": false,
+        "lines": [
+          {
+            "id": "suspect-2-l1",
+            "text": "I was at home. Alone, I'm afraid.",
+            "words": []
+          },
+          {
+            "id": "suspect-2-l2",
+            "text": "Honestly? I sat there thinking about candles, then fell asleep.",
+            "words": [
+              {
+                "wordId": "suspect-2-w1",
+                "text": "candles",
+                "start": 37,
+                "end": 44
+              }
+            ]
+          },
+          {
+            "id": "suspect-2-l3",
+            "text": "I didn't hear a thing until the sirens.",
+            "words": []
+          }
+        ]
+      },
+      {
+        "id": "suspect-3",
+        "name": "Nell Dunmore",
+        "relation": "a debt collector",
+        "isLiar": false,
+        "lines": [
+          {
+            "id": "suspect-3-l1",
+            "text": "We argued once, years ago. That's all.",
+            "words": []
+          },
+          {
+            "id": "suspect-3-l2",
+            "text": "All I remember from that evening is talk of rain.",
+            "words": [
+              {
+                "wordId": "suspect-3-w1",
+                "text": "rain",
+                "start": 44,
+                "end": 48
+              }
+            ]
+          },
+          {
+            "id": "suspect-3-l3",
+            "text": "I had work in the morning, so I turned in early.",
+            "words": []
+          }
+        ]
+      }
+    ],
+    "pins": [
+      {
+        "wordId": "suspect-1-w1",
+        "objectId": "prop-1",
+        "label": "LISBONNE, printed on the napkin"
+      },
+      {
+        "wordId": "suspect-1-w2",
+        "objectId": "prop-2",
+        "label": "HALLORAN, printed on the photograph"
+      },
+      {
+        "wordId": "suspect-1-w3",
+        "objectId": "prop-3",
+        "label": "ORPHEUM, printed on the theatre ticket"
+      }
+    ],
+    "herrings": [
+      {
+        "wordId": "suspect-2-w1",
+        "nearObjectId": "lamp",
+        "rebuttal": "Everyone talks about candles. A liar borrows details only your room could give them."
+      },
+      {
+        "wordId": "suspect-3-w1",
+        "nearObjectId": null,
+        "rebuttal": "Nothing in this room says \"rain\". Listen for details that only your room could give them."
+      }
+    ],
+    "glances": [
+      {
+        "wordId": "suspect-1-w1",
+        "objectId": "prop-1",
+        "leadMs": 700
+      },
+      {
+        "wordId": "suspect-1-w2",
+        "objectId": "prop-2",
+        "leadMs": 700
+      },
+      {
+        "wordId": "suspect-1-w3",
+        "objectId": "prop-3",
+        "leadMs": 700
+      }
+    ],
+    "confession": "Fine. I made it all up. Every detail was sitting right there in front of me.",
+    "props": [
+      {
+        "id": "prop-1",
+        "label": "napkin",
+        "text": [
+          "Café Lisbonne"
+        ],
+        "visibleFromSeat": true,
+        "confidence": 1,
+        "prop": true
+      },
+      {
+        "id": "prop-2",
+        "label": "photograph",
+        "text": [
+          "Greetings from Port Halloran"
+        ],
+        "visibleFromSeat": true,
+        "confidence": 1,
+        "prop": true
+      },
+      {
+        "id": "prop-3",
+        "label": "theatre ticket",
+        "text": [
+          "ORPHEUM, ROW F"
+        ],
+        "visibleFromSeat": true,
+        "confidence": 1,
+        "prop": true
+      }
+    ]
+  },
+  "attempts": [
+    {
+      "writer": "template",
+      "ok": true,
+      "errors": []
+    }
+  ]
+}

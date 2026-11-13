@@ -1,0 +1,252 @@
+{
+  "room": [
+    {
+      "id": "mug",
+      "label": "mug",
+      "text": [
+        "KOBAYASHI"
+      ],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "book1",
+      "label": "book",
+      "text": [
+        "The Picture of Dorian Gray"
+      ],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "poster",
+      "label": "poster",
+      "text": [
+        "Monterey Jazz Festival"
+      ],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "box",
+      "label": "cereal box",
+      "text": [
+        "Crunchy Oat Clusters"
+      ],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "umbrella",
+      "label": "umbrella",
+      "text": [],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "lamp",
+      "label": "lamp",
+      "text": [],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "plant",
+      "label": "plant",
+      "text": [],
+      "visibleFromSeat": true,
+      "confidence": 0.9
+    },
+    {
+      "id": "book2",
+      "label": "book",
+      "text": [
+        "Moby Dick"
+      ],
+      "visibleFromSeat": false,
+      "confidence": 0.9
+    }
+  ],
+  "caseFile": {
+    "version": 1,
+    "caseId": "case-16",
+    "seed": 42,
+    "writer": "template",
+    "victim": {
+      "name": "Gideon Shaw",
+      "occupation": "a pawnbroker"
+    },
+    "timeOfDeath": "11:50 pm",
+    "intro": [
+      "Gideon Shaw, a pawnbroker, was found dead at 11:50 pm.",
+      "Three people saw the victim that evening. One of them is lying.",
+      "Listen closely. A liar borrows details from whatever is in front of them."
+    ],
+    "suspects": [
+      {
+        "id": "suspect-1",
+        "name": "Lena Dunmore",
+        "relation": "the neighbour from downstairs",
+        "isLiar": false,
+        "lines": [
+          {
+            "id": "suspect-1-l1",
+            "text": "I barely knew Gideon Shaw these days.",
+            "words": []
+          },
+          {
+            "id": "suspect-1-l2",
+            "text": "All I remember from that evening is talk of garden.",
+            "words": [
+              {
+                "wordId": "suspect-1-w1",
+                "text": "garden",
+                "start": 44,
+                "end": 50
+              }
+            ]
+          },
+          {
+            "id": "suspect-1-l3",
+            "text": "We argued once, years ago. That's all.",
+            "words": []
+          }
+        ]
+      },
+      {
+        "id": "suspect-2",
+        "name": "Cyril Crane",
+        "relation": "a debt collector",
+        "isLiar": false,
+        "lines": [
+          {
+            "id": "suspect-2-l1",
+            "text": "I had work in the morning, so I turned in early.",
+            "words": []
+          },
+          {
+            "id": "suspect-2-l2",
+            "text": "We talked about rain for a while, and then I went home.",
+            "words": [
+              {
+                "wordId": "suspect-2-w1",
+                "text": "rain",
+                "start": 16,
+                "end": 20
+              }
+            ]
+          },
+          {
+            "id": "suspect-2-l3",
+            "text": "I didn't hear a thing until the sirens.",
+            "words": []
+          }
+        ]
+      },
+      {
+        "id": "suspect-3",
+        "name": "June Wilde",
+        "relation": "the victim's business partner",
+        "isLiar": true,
+        "lines": [
+          {
+            "id": "suspect-3-l1",
+            "text": "You've got the wrong person, and I can prove it.",
+            "words": []
+          },
+          {
+            "id": "suspect-3-l2",
+            "text": "I spent the whole evening at the Dorian, from eight until they closed.",
+            "words": [
+              {
+                "wordId": "suspect-3-w1",
+                "text": "Dorian",
+                "start": 33,
+                "end": 39
+              }
+            ]
+          },
+          {
+            "id": "suspect-3-l3",
+            "text": "The taxi dropped me outside Kobayashi just before ten.",
+            "words": [
+              {
+                "wordId": "suspect-3-w2",
+                "text": "Kobayashi",
+                "start": 28,
+                "end": 37
+              }
+            ]
+          },
+          {
+            "id": "suspect-3-l4",
+            "text": "I bought a ticket for Monterey that evening. I kept the stub.",
+            "words": [
+              {
+                "wordId": "suspect-3-w3",
+                "text": "Monterey",
+                "start": 22,
+                "end": 30
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "pins": [
+      {
+        "wordId": "suspect-3-w1",
+        "objectId": "book1",
+        "label": "DORIAN, printed on the book"
+      },
+      {
+        "wordId": "suspect-3-w2",
+        "objectId": "mug",
+        "label": "KOBAYASHI, printed on the mug"
+      },
+      {
+        "wordId": "suspect-3-w3",
+        "objectId": "poster",
+        "label": "MONTEREY, printed on the poster"
+      }
+    ],
+    "herrings": [
+      {
+        "wordId": "suspect-1-w1",
+        "nearObjectId": "plant",
+        "rebuttal": "Everyone talks about garden. A liar borrows details only your room could give them."
+      },
+      {
+        "wordId": "suspect-2-w1",
+        "nearObjectId": "umbrella",
+        "rebuttal": "Everyone talks about rain. A liar borrows details only your room could give them."
+      }
+    ],
+    "glances": [
+      {
+        "wordId": "suspect-3-w1",
+        "objectId": "book1",
+        "leadMs": 700
+      },
+      {
+        "wordId": "suspect-3-w2",
+        "objectId": "mug",
+        "leadMs": 700
+      },
+      {
+        "wordId": "suspect-3-w3",
+        "objectId": "poster",
+        "leadMs": 700
+      }
+    ],
+    "confession": "You noticed. I needed a story fast, so I borrowed one from what I could see.",
+    "props": []
+  },
+  "attempts": [
+    {
+      "writer": "template",
+      "ok": true,
+      "errors": []
+    }
+  ]
+}
