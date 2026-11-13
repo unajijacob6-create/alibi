@@ -63,9 +63,11 @@ npm start
 Then use `http://<laptop IP>:8787` as the Base Url. Android blocks plain `http://` by
 default: set **Player Settings > Other Settings > Allow downloads over HTTP** to allowed.
 
-**Before submitting:** judges' headsets can't reach your laptop. Deploy the service to
-a public `https://` host and point the Base Url there. Until then, the app falls back
-to the backup apartment and its bundled case.
+**Before submitting:** judges' headsets can't reach your laptop. Deploy the service
+with the repo's `render.yaml` (see the main README), then set **Base Url** to the
+`https://<name>.onrender.com` address and **Client Token** to the `ALIBI_CLIENT_TOKEN`
+value Render generated. Until then, the app falls back to the backup apartment and
+its bundled case.
 
 ## The backup apartment
 

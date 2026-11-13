@@ -60,6 +60,7 @@ namespace Alibi
         private void Start()
         {
             if (backupApartment != null) backupApartment.SetActive(false);
+            if (service != null) StartCoroutine(service.Wake());
             _startTime = Time.time;
             _story = StartCoroutine(RunCase());
         }

@@ -12,14 +12,29 @@ namespace Alibi
 {
     public class AlibiServiceClient : MonoBehaviour
     {
-        [Tooltip("Where the case service runs, e.g. http://192.168.1.20:8787 for a laptop on the same Wi-Fi.")]
+        [Tooltip("Where the case service runs: https://<name>.onrender.com once deployed, or http://<laptop IP>:8787 on the same Wi-Fi.")]
         public string baseUrl = "http://192.168.1.20:8787";
 
         [Tooltip("Must match ALIBI_CLIENT_TOKEN on the server, if that is set. Leave empty otherwise.")]
         public string clientToken = "";
 
-        public int scanTimeoutSeconds = 60;
-        public int caseTimeoutSeconds = 60;
+        // Generous, because a sleeping free-plan server takes about a minute to wake.
+        public int scanTimeoutSeconds = 90;
+        public int caseTimeoutSeconds = 90;
+
+        /// <summary>
+        /// Call at launch. Wakes a server that has gone to sleep, so it is ready by
+        /// the time the look-around finishes. The result is ignored.
+        /// </summary>
+        public IEnumerator Wake()
+        {
+            using (var req = UnityWebRequest.Get(baseUrl.TrimEnd('/') + "/health"))
+            {
+                req.timeout = 90;
+                yield return req.SendWebRequest();
+                Debug.Log($"[Alibi] Case service {(req.result == UnityWebRequest.Result.Success ? "is awake" : "did not answer: " + req.error)}");
+            }
+        }
 
         public IEnumerator Scan(ScanRequest request, Action<ScanResponse> onDone, Action<string> onError) =>
             Post("/v1/scan", JsonUtility.ToJson(request), scanTimeoutSeconds,

@@ -1,0 +1,27 @@
+# Render Blueprint for the Alibi case service (the server the headset calls).
+# Create it from: https://dashboard.render.com/blueprint/new?repo=https://github.com/unajijacob6-create/alibi
+
+services:
+  - type: web
+    name: alibi-case-service
+    runtime: node
+    # The free plan sleeps after 15 minutes without traffic and takes about a
+    # minute to wake. Switch to "starter" (paid) before judges start playing.
+    plan: free
+    rootDir: case-service
+    branch: main
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      # Your Anthropic API key: entered in the Render dashboard, never committed.
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      # Shared secret the headset sends. Render generates it; copy it into
+      # AlibiServiceClient > Client Token in Unity.
+      - key: ALIBI_CLIENT_TOKEN
+        generateValue: true
+      - key: ALIBI_LIMIT_PER_CLIENT_PER_HOUR
+        value: "60"
+      - key: ALIBI_LIMIT_PER_DAY
+        value: "3000"
