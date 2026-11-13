@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import type { AddressInfo } from "node:net";
 import { toRoomObjects, type Frame, type ScannedObject } from "../src/vision.ts";
 import { createApp } from "../src/server.ts";
+import { clientKey, FixedWindowLimiter } from "../src/ratelimit.ts";
 import { solveCase } from "../src/solver.ts";
 import type { CaseFile } from "../src/types.ts";
 import { bedroom } from "./fixtures.ts";
@@ -76,4 +77,39 @@ test("bad requests get a 400, failed scans a 503", async () => {
     });
     assert.equal(scan.status, 503);
   }, true);
+});
+
+test("the limiter allows up to the limit per window, then resets", () => {
+  let now = 0;
+  const l = new FixedWindowLimiter(2, 1000, () => now);
+  assert.equal(l.take("a"), true);
+  assert.equal(l.take("a"), true);
+  assert.equal(l.take("a"), false);
+  assert.equal(l.take("b"), true, "other clients are counted separately");
+  now = 1000;
+  assert.equal(l.take("a"), true, "a new window starts fresh");
+});
+
+test("the client key prefers the proxy's forwarded address", () => {
+  assert.equal(clientKey({ "x-forwarded-for": "203.0.113.7, 10.0.0.1" }, "10.0.0.1"), "203.0.113.7");
+  assert.equal(clientKey({}, "198.51.100.2"), "198.51.100.2");
+});
+
+test("over the per-client limit, case requests get a 429", async () => {
+  const app = createApp(
+    { writer: { name: "llm", write: async () => { throw new Error("offline"); } } as never, scanner: { scan: async () => [] } as never },
+    { perClientPerHour: 2, perDay: 100 },
+  );
+  await new Promise<void>((r) => app.listen(0, r));
+  const { port } = app.address() as AddressInfo;
+  try {
+    const post = () =>
+      fetch(`http://127.0.0.1:${port}/v1/case`, { method: "POST", body: JSON.stringify({ room: bedroom, seed: 1 }) });
+    assert.equal((await post()).status, 200);
+    assert.equal((await post()).status, 200);
+    assert.equal((await post()).status, 429);
+    assert.equal((await fetch(`http://127.0.0.1:${port}/health`)).status, 200, "health checks are never limited");
+  } finally {
+    app.close();
+  }
 });

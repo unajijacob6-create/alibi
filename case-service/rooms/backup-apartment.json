@@ -1,0 +1,11 @@
+[
+  { "id": "apt-mug", "label": "mug", "text": ["MARGATE DINER"], "clueWord": "Margate", "visibleFromSeat": true, "confidence": 1 },
+  { "id": "apt-book", "label": "book", "text": ["The Lighthouse at Corvane"], "clueWord": "Corvane", "visibleFromSeat": true, "confidence": 1 },
+  { "id": "apt-poster", "label": "poster", "text": ["Kestrel Valley Jazz Nights"], "clueWord": "Kestrel", "visibleFromSeat": true, "confidence": 1 },
+  { "id": "apt-record", "label": "record sleeve", "text": ["Ottoline Faye", "Live at the Palisade"], "clueWord": "Ottoline", "visibleFromSeat": true, "confidence": 1 },
+  { "id": "apt-bottle", "label": "wine bottle", "text": ["Chateau Vellany 1987"], "clueWord": "Vellany", "visibleFromSeat": true, "confidence": 1 },
+  { "id": "apt-calendar", "label": "calendar", "text": ["Halvorsen Shipping Co."], "clueWord": "Halvorsen", "visibleFromSeat": true, "confidence": 1 },
+  { "id": "apt-umbrella", "label": "umbrella", "text": [], "visibleFromSeat": true, "confidence": 1 },
+  { "id": "apt-lamp", "label": "lamp", "text": [], "visibleFromSeat": true, "confidence": 1 },
+  { "id": "apt-clock", "label": "clock", "text": [], "visibleFromSeat": true, "confidence": 1 }
+]

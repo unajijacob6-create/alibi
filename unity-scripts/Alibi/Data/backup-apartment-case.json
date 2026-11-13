@@ -1,0 +1,268 @@
+{
+  "room": [
+    {
+      "id": "apt-mug",
+      "label": "mug",
+      "text": [
+        "MARGATE DINER"
+      ],
+      "clueWord": "Margate",
+      "visibleFromSeat": true,
+      "confidence": 1
+    },
+    {
+      "id": "apt-book",
+      "label": "book",
+      "text": [
+        "The Lighthouse at Corvane"
+      ],
+      "clueWord": "Corvane",
+      "visibleFromSeat": true,
+      "confidence": 1
+    },
+    {
+      "id": "apt-poster",
+      "label": "poster",
+      "text": [
+        "Kestrel Valley Jazz Nights"
+      ],
+      "clueWord": "Kestrel",
+      "visibleFromSeat": true,
+      "confidence": 1
+    },
+    {
+      "id": "apt-record",
+      "label": "record sleeve",
+      "text": [
+        "Ottoline Faye",
+        "Live at the Palisade"
+      ],
+      "clueWord": "Ottoline",
+      "visibleFromSeat": true,
+      "confidence": 1
+    },
+    {
+      "id": "apt-bottle",
+      "label": "wine bottle",
+      "text": [
+        "Chateau Vellany 1987"
+      ],
+      "clueWord": "Vellany",
+      "visibleFromSeat": true,
+      "confidence": 1
+    },
+    {
+      "id": "apt-calendar",
+      "label": "calendar",
+      "text": [
+        "Halvorsen Shipping Co."
+      ],
+      "clueWord": "Halvorsen",
+      "visibleFromSeat": true,
+      "confidence": 1
+    },
+    {
+      "id": "apt-umbrella",
+      "label": "umbrella",
+      "text": [],
+      "visibleFromSeat": true,
+      "confidence": 1
+    },
+    {
+      "id": "apt-lamp",
+      "label": "lamp",
+      "text": [],
+      "visibleFromSeat": true,
+      "confidence": 1
+    },
+    {
+      "id": "apt-clock",
+      "label": "clock",
+      "text": [],
+      "visibleFromSeat": true,
+      "confidence": 1
+    }
+  ],
+  "caseFile": {
+    "version": 1,
+    "caseId": "case-1",
+    "seed": 1,
+    "writer": "template",
+    "victim": {
+      "name": "Mortimer Bly",
+      "occupation": "a racehorse owner"
+    },
+    "timeOfDeath": "11:50 pm",
+    "intro": [
+      "Mortimer Bly, a racehorse owner, was found dead at 11:50 pm.",
+      "Three people saw the victim that evening. One of them is lying.",
+      "Listen closely. A liar borrows details from whatever is in front of them."
+    ],
+    "suspects": [
+      {
+        "id": "suspect-1",
+        "name": "Ida Marsh",
+        "relation": "the landlord",
+        "isLiar": true,
+        "lines": [
+          {
+            "id": "suspect-1-l1",
+            "text": "I'll tell you exactly where I was. Write it down.",
+            "words": []
+          },
+          {
+            "id": "suspect-1-l2",
+            "text": "I spent the whole evening at the Kestrel, from eight until they closed.",
+            "words": [
+              {
+                "wordId": "suspect-1-w1",
+                "text": "Kestrel",
+                "start": 33,
+                "end": 40
+              }
+            ]
+          },
+          {
+            "id": "suspect-1-l3",
+            "text": "I was reading about Ottoline in bed when the phone rang.",
+            "words": [
+              {
+                "wordId": "suspect-1-w2",
+                "text": "Ottoline",
+                "start": 20,
+                "end": 28
+              }
+            ]
+          },
+          {
+            "id": "suspect-1-l4",
+            "text": "The taxi dropped me outside Vellany just before ten.",
+            "words": [
+              {
+                "wordId": "suspect-1-w3",
+                "text": "Vellany",
+                "start": 28,
+                "end": 35
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "suspect-2",
+        "name": "Desmond Tamsin",
+        "relation": "the victim's business partner",
+        "isLiar": false,
+        "lines": [
+          {
+            "id": "suspect-2-l1",
+            "text": "I didn't hear a thing until the sirens.",
+            "words": []
+          },
+          {
+            "id": "suspect-2-l2",
+            "text": "All I remember from that evening is talk of storm.",
+            "words": [
+              {
+                "wordId": "suspect-2-w1",
+                "text": "storm",
+                "start": 44,
+                "end": 49
+              }
+            ]
+          },
+          {
+            "id": "suspect-2-l3",
+            "text": "We argued once, years ago. That's all.",
+            "words": []
+          }
+        ]
+      },
+      {
+        "id": "suspect-3",
+        "name": "Nell Brook",
+        "relation": "an old flame",
+        "isLiar": false,
+        "lines": [
+          {
+            "id": "suspect-3-l1",
+            "text": "I was at home. Alone, I'm afraid.",
+            "words": []
+          },
+          {
+            "id": "suspect-3-l2",
+            "text": "We talked about coffee for a while, and then I went home.",
+            "words": [
+              {
+                "wordId": "suspect-3-w1",
+                "text": "coffee",
+                "start": 16,
+                "end": 22
+              }
+            ]
+          },
+          {
+            "id": "suspect-3-l3",
+            "text": "I had work in the morning, so I turned in early.",
+            "words": []
+          }
+        ]
+      }
+    ],
+    "pins": [
+      {
+        "wordId": "suspect-1-w1",
+        "objectId": "apt-poster",
+        "label": "KESTREL, printed on the poster"
+      },
+      {
+        "wordId": "suspect-1-w2",
+        "objectId": "apt-record",
+        "label": "OTTOLINE, printed on the record sleeve"
+      },
+      {
+        "wordId": "suspect-1-w3",
+        "objectId": "apt-bottle",
+        "label": "VELLANY, printed on the wine bottle"
+      }
+    ],
+    "herrings": [
+      {
+        "wordId": "suspect-2-w1",
+        "nearObjectId": "apt-umbrella",
+        "rebuttal": "Everyone talks about storm. A liar borrows details only your room could give them."
+      },
+      {
+        "wordId": "suspect-3-w1",
+        "nearObjectId": "apt-mug",
+        "rebuttal": "Everyone talks about coffee. A liar borrows details only your room could give them."
+      }
+    ],
+    "glances": [
+      {
+        "wordId": "suspect-1-w1",
+        "objectId": "apt-poster",
+        "leadMs": 700
+      },
+      {
+        "wordId": "suspect-1-w2",
+        "objectId": "apt-record",
+        "leadMs": 700
+      },
+      {
+        "wordId": "suspect-1-w3",
+        "objectId": "apt-bottle",
+        "leadMs": 700
+      }
+    ],
+    "confession": "All right. None of it happened. I just said whatever caught my eye.",
+    "props": []
+  },
+  "attempts": [
+    {
+      "writer": "template",
+      "ok": true,
+      "errors": []
+    }
+  ]
+}

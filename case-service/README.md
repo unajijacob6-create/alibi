@@ -58,8 +58,16 @@ have Claude write the dialogue; that needs Anthropic credentials (`ANTHROPIC_API
 ANTHROPIC_API_KEY=... npm start
 ```
 
-Starts the server on port 8787 (`PORT` to change). Set `ALIBI_CLIENT_TOKEN` to
-require the header `x-alibi-token` on every request.
+Starts the server on port 8787 (`PORT` to change). Optional settings:
+
+| Variable | Default | What it does |
+|---|---|---|
+| `ALIBI_CLIENT_TOKEN` | not set | Require the header `x-alibi-token` with this value |
+| `ALIBI_LIMIT_PER_CLIENT_PER_HOUR` | 60 | Scan and case requests per device per hour |
+| `ALIBI_LIMIT_PER_DAY` | 3000 | Scan and case requests for the whole server per day |
+
+Over a limit, the server answers `429` and the headset falls back to the backup apartment.
+The limits protect your Anthropic bill once the server is public.
 
 ## API for the headset
 

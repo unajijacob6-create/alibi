@@ -11,6 +11,7 @@ import { z } from "zod";
 import { generateCase } from "./generate.ts";
 import { ClaudeWriter } from "./writer-llm.ts";
 import { RoomScanner } from "./vision.ts";
+import { clientKey, FixedWindowLimiter, limitsFromEnv, type Limits } from "./ratelimit.ts";
 
 const MAX_BODY_BYTES = 25 * 1024 * 1024;
 const MAX_FRAMES = 12;
@@ -61,12 +62,27 @@ function send(res: ServerResponse, status: number, body: unknown) {
   res.end(JSON.stringify(body));
 }
 
-export function createApp(deps = { writer: new ClaudeWriter(), scanner: new RoomScanner() }) {
+const HOUR = 60 * 60 * 1000;
+
+export function createApp(
+  deps = { writer: new ClaudeWriter(), scanner: new RoomScanner() },
+  limits: Limits = limitsFromEnv(),
+) {
   const token = process.env.ALIBI_CLIENT_TOKEN;
+  const perClient = new FixedWindowLimiter(limits.perClientPerHour, HOUR);
+  const perDay = new FixedWindowLimiter(limits.perDay, 24 * HOUR);
   return createServer(async (req, res) => {
     try {
       if (req.method === "GET" && req.url === "/health") return send(res, 200, { ok: true });
       if (token && req.headers["x-alibi-token"] !== token) throw new HttpError(401, "bad client token");
+
+      // Only the endpoints that can call Claude count towards the limits.
+      if (req.method === "POST" && (req.url === "/v1/case" || req.url === "/v1/scan")) {
+        if (!perClient.take(clientKey(req.headers, req.socket.remoteAddress))) {
+          throw new HttpError(429, "too many requests from this device; try again later");
+        }
+        if (!perDay.take("all")) throw new HttpError(429, "daily limit reached; try again tomorrow");
+      }
 
       if (req.method === "POST" && req.url === "/v1/case") {
         const parsed = CaseRequest.safeParse(await readJson(req));
